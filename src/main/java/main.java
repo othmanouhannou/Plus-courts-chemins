@@ -6,5 +6,7 @@ public class main {
          Graph graph = pcc.generer_Aleatoire(5);
          pcc.display(graph);
          pcc.djikstra(graph, graph.getNode(0));
+        // Exécuter l'algorithme de Dijkstra de GraphStream
+        pcc.dijkstraGS(graph, graph.getNode(0).getId());
     }
 }

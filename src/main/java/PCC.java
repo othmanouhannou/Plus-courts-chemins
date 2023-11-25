@@ -1,3 +1,4 @@
+import org.graphstream.algorithm.Dijkstra;
 import org.graphstream.algorithm.generator.Generator;
 import org.graphstream.algorithm.generator.RandomGenerator;
 import org.graphstream.graph.Edge;
@@ -11,7 +12,7 @@ import java.util.Set;
 import java.util.Stack;
 
 public class PCC {
-   private HashMap<Node, Double> queue = new HashMap<Node, Double>();
+    private HashMap<Node, Double> queue = new HashMap<Node, Double>();
 
     public Graph generer_Aleatoire(int taille) {
         Graph graph = new SingleGraph("My Graphe");
@@ -20,10 +21,11 @@ public class PCC {
         g.begin();
         for (int i = 0; i < taille; i++)
             g.nextEvents();
-            g.end();
+        g.end();
         return graph;
     }
-// method display
+
+    // method display
     public void display(Graph graph) {
         graph.display();
     }
@@ -53,7 +55,7 @@ public class PCC {
         return minDistanceNode;
     }
 
-    public void djikstra(Graph graph, Node source){
+    public void djikstra(Graph graph, Node source) {
         long debut, fin;
         debut = System.currentTimeMillis();
         init(graph, source);
@@ -66,7 +68,7 @@ public class PCC {
             while (edgeIterator.hasNext()) {
                 Edge currEdge = edgeIterator.next();
                 Node opNode = currEdge.getTargetNode();
-                if(! queue.containsKey(opNode)) {
+                if (!queue.containsKey(opNode)) {
                     Double currNodeDist = courant.getAttribute("distance");
                     Double edgeWeight = currEdge.getAttribute("cap");
                     Double sum = currNodeDist + edgeWeight;
@@ -83,10 +85,40 @@ public class PCC {
         }
         fin = System.currentTimeMillis();
         long temps = fin - debut;
-        System.out.println("temps d'execution de la methode djikstra en ms : " +  temps );
+        System.out.println("temps d'execution de la methode djikstra en ms : " + temps);
 
 
     }
 
+    public static void dijkstraGS(Graph graph, String sourceNodeId) {
+        // Mesure du temps de début
+        long startTime = System.currentTimeMillis();
 
+        Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "cap");
+
+        // Initialise Dijkstra avec le graphe et le nœud source
+        dijkstra.init(graph);
+        dijkstra.setSource(graph.getNode(sourceNodeId));
+
+        // Exécute l'algorithme de Dijkstra
+        dijkstra.compute();
+
+        // Mesure du temps de fin
+        long endTime = System.currentTimeMillis();
+
+        // Affiche les résultats
+        for (Node node : graph) {
+            System.out.println("Distance de " + sourceNodeId + " à " + node.getId() + " : " + dijkstra.getPathLength(node));
+
+            // Affiche le chemin seulement si un chemin existe
+            if (dijkstra.getPathLength(node) != Double.POSITIVE_INFINITY) {
+                System.out.println("Chemin de " + sourceNodeId + " à " + node.getId() + " : " + dijkstra.getPath(node).toString());
+            } else {
+                System.out.println("Pas de chemin de " + sourceNodeId + " à " + node.getId());
+            }
+        }
+
+        // Affiche le temps d'exécution
+        System.out.println("Temps d'exécution de Dijkstra : " + (endTime - startTime) + " millisecondes");
+    }
 }

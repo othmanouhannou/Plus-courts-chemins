@@ -41,7 +41,8 @@ En résumé, l'implémentation avec GraphStream offre une approche simplifiée d
 Dans ces tests, j'ai évalué les performances de deux implémentations de l'algorithme de Dijkstra sur des graphes de tailles croissantes, allant de 0 à 10 000 nœuds. J'ai choisi d'augmenter la taille du graphe par incréments de 1 000 nœuds pour observer les variations de performances. Les temps d'exécution de chaque algorithme ont été mesurés, enregistrés dans un fichier CSV, et les résultats ont été affichés à chaque étape pour faciliter le suivi. Ces tests permettent d'analyser la manière dont les deux implémentations se comportent dans des scénarios divers, fournissant ainsi des informations cruciales sur leur efficacité
 
 ## Résultats
-     ![Alt text](C:\Users\othma\OneDrive\Bureau\Screenshot 2023-11-27 191257.png)
+![Représentation Graphique](https://www-apps.univ-lehavre.fr/forge/oo233373/tp3-plus-courts-chemins/-/blob/main/img.png)
+
 
 Nous observons une corrélation entre l'augmentation de la taille du graphe et l'accroissement des temps d'exécution. Dans le cas de graphes de petite taille, la méthode naïve et l'approche utilisant GraphStream affichent des performances relativement similaires. Toutefois, à mesure que la taille du graphe approche 10 000 nœuds, la méthode naïve montre des signes de ralentissement significatifs. En revanche, l'implémentation GraphStream semble mieux gérer cette complexité croissante, préservant des temps d'exécution plus raisonnables même avec des graphes de grande envergure. Cette observation souligne la capacité de l'approche basée sur GraphStream à maintenir des performances stables face à des graphes de taille importante, par rapport à une implémentation naïve qui montre des limitations apparentes dans ces scénarios plus vastes.
 

@@ -16,7 +16,12 @@ public class PCC {
 
     public Graph generer_Aleatoire(int taille) {
         Graph graph = new SingleGraph("My Graphe");
-        Generator g = new RandomGenerator(10, false, false, "", "cap");
+        Generator g = null;
+        if (taille <= 10000)
+             g = new RandomGenerator(10, false, false, "", "cap");
+        else
+             g = new RandomGenerator(50, false, false, "", "cap");
+
         g.addSink(graph);
         g.begin();
         for (int i = 0; i < taille; i++)
@@ -79,13 +84,13 @@ public class PCC {
                         queue.put(opNode, opNode.getAttribute("distance"));
                     }
                 }
-                System.out.println("Edge from Node " + graph.getNode(0) + " to Node " + opNode.getId() +
-                        ", Distance: " + opNode.getAttribute("distance"));
+              //  System.out.println("Edge from Node " + graph.getNode(0) + " to Node " + opNode.getId() +
+                       // ", Distance: " + opNode.getAttribute("distance"));
             }
         }
         fin = System.currentTimeMillis();
         long temps = fin - debut;
-        System.out.println("temps d'execution de la methode djikstra en ms : " + temps);
+        //System.out.println("temps d'execution de la methode djikstra en ms : " + temps);
 
 
     }
@@ -108,17 +113,17 @@ public class PCC {
 
         // Affiche les résultats
         for (Node node : graph) {
-            System.out.println("Distance de " + sourceNodeId + " à " + node.getId() + " : " + dijkstra.getPathLength(node));
+            //System.out.println("Distance de " + sourceNodeId + " à " + node.getId() + " : " + dijkstra.getPathLength(node));
 
             // Affiche le chemin seulement si un chemin existe
             if (dijkstra.getPathLength(node) != Double.POSITIVE_INFINITY) {
-                System.out.println("Chemin de " + sourceNodeId + " à " + node.getId() + " : " + dijkstra.getPath(node).toString());
+               // System.out.println("Chemin de " + sourceNodeId + " à " + node.getId() + " : " + dijkstra.getPath(node).toString());
             } else {
-                System.out.println("Pas de chemin de " + sourceNodeId + " à " + node.getId());
+               // System.out.println("Pas de chemin de " + sourceNodeId + " à " + node.getId());
             }
         }
 
         // Affiche le temps d'exécution
-        System.out.println("Temps d'exécution de Dijkstra : " + (endTime - startTime) + " millisecondes");
+        //System.out.println("Temps d'exécution de Dijkstra : " + (endTime - startTime) + " millisecondes");
     }
 }
